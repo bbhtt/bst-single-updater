@@ -24,6 +24,15 @@ from . import __version__
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 
+ALLOWED_EXTRA_AUTO_UPDATER_OPTS = {
+    "--bst1",
+    "--nodeps",
+    "--project_root",
+    "--bstignore",
+    "--option",
+    "-o",
+}
+
 
 def run_command(
     command: list[str],
@@ -136,6 +145,16 @@ def run_updater(branch: str, element: str, extra_opts: str = "") -> bool:
     if not element_exists(element):
         return False
 
+    tokens = shlex.split(extra_opts) if extra_opts else []
+
+    for token in tokens:
+        if not any(
+            token == opt or token.startswith(f"{opt}=")
+            for opt in ALLOWED_EXTRA_AUTO_UPDATER_OPTS
+        ):
+            logging.error(f"Option not allowed in extra_opts: {token}")
+            return False
+
     command = [
         "auto_updater",
         f"--base_branch={branch}",
@@ -144,8 +163,7 @@ def run_updater(branch: str, element: str, extra_opts: str = "") -> bool:
         "--shuffle-branches",
         "--on_track_error=continue",
     ]
-    if extra_opts:
-        command.extend(shlex.split(extra_opts))
+    command.extend(tokens)
     command.append(element)
 
     logging.info("Running command: %s", " ".join(command))
@@ -388,7 +406,10 @@ def main() -> int:
         type=str,
         default="",
         metavar="",
-        help="Extra options to pass to auto_updater",
+        help=(
+            "Extra options to pass to auto_updater. "
+            f"Supported: {', '.join(sorted(ALLOWED_EXTRA_AUTO_UPDATER_OPTS))}"
+        ),
     )
     parser.add_argument(
         "--push",
