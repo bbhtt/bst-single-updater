@@ -6,7 +6,7 @@ to create a single MR with all updates instead of one MR per update.
 ### Install
 
 ```sh
-pip install --user git+https://github.com/bbhtt/bst-single-updater.git@v0.0.0#egg=bst_single_updater
+pip install --user git+https://github.com/bbhtt/bst-single-updater.git@v0.1.0#egg=bst_single_updater
 ```
 
 ### Usage

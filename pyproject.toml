@@ -11,7 +11,7 @@ exclude = ["**/__pycache__"]
 
 [project]
 name = "bst_single_updater"
-version = "0.0.0"
+version = "0.1.0"
 description = "Create a single MR with all updates from auto_updater!"
 authors = [
   {name = "bbhtt", email = "bbhtt@bbhtt.in"},
