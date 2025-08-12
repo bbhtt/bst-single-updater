@@ -32,7 +32,7 @@ options:
   --base-branch         Specify the base branch
   --element             Specify the element auto_updater will track
   --extra-auto_updater-opts
-                        Extra options to pass to auto_updater
+                        Extra options to pass to auto_updater. Supported: --bst1, --bstignore, --nodeps, --option, --project_root, -o
   --push                Push the branch to the remote repository
   --create-mr           Create a Gitlab merge request (implies --push)
 ```
