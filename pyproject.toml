@@ -1,0 +1,115 @@
+[build-system]
+requires = ["setuptools>=61"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools]
+include-package-data = true
+
+[tool.setuptools.packages.find]
+where = ["."]
+exclude = ["**/__pycache__"]
+
+[project]
+name = "bst_single_updater"
+version = "0.0.0"
+description = "Create a single MR with all updates from auto_updater!"
+authors = [
+  {name = "bbhtt", email = "bbhtt@bbhtt.in"},
+]
+license = {text = "MIT"}
+readme = "README.md"
+requires-python = "<4.0,>=3.10"
+dependencies = []
+
+[project.scripts]
+bst-single-updater = "bst_single_updater.__main__:main"
+
+[project.urls]
+Homepage = "https://github.com/bbhtt/bst_single_updater"
+Repository = "https://github.com/bbhtt/bst_single_updater.git"
+
+[project.optional-dependencies]
+gitlab = [
+  "python-gitlab>=6.1.0,<7.0.0",
+]
+auto_updater = [
+    "auto_updater @ git+https://gitlab.com/BuildStream/infrastructure/gitlab-merge-request-generator.git@773c8be54af9a9dd175157f6f1e38c4b86f2bcab"
+]
+
+[dependency-groups]
+dev = [
+    "pre-commit<4.0.0,>=3.8.0",
+    "mypy<2.0.0,>=1.11.2",
+    "ruff<1.0.0,>=0.6.7",
+#    "pytest<9.0.0,>=8.3.3",
+]
+
+[tool.mypy]
+check_untyped_defs = true
+disallow_any_generics = true
+disallow_any_unimported = true
+disallow_incomplete_defs = true
+disallow_subclassing_any = true
+disallow_untyped_calls = true
+disallow_untyped_decorators = true
+disallow_untyped_defs = true
+extra_checks = true
+no_implicit_optional = true
+no_implicit_reexport = true
+show_error_codes = true
+strict = true
+strict_equality = true
+warn_redundant_casts = true
+warn_return_any = true
+warn_unused_configs = true
+warn_unused_ignores = true
+
+[tool.ruff]
+line-length = 88
+include = ["*.py"]
+target-version = "py310"
+
+[tool.ruff.lint]
+select = [
+  "A",
+  "ARG",
+  "B",
+  "C4",
+  "DTZ",
+  "E",
+  "ERA",
+  "F",
+  "I",
+  "ICN",
+  "PIE",
+  "PL",
+  "Q",
+  "RET",
+  "RSE",
+  "RUF",
+  "S",
+  "SIM",
+  "T201",
+  "UP",
+  "W",
+]
+
+ignore = [
+  "PLR2004",
+  "PLR0911",
+  "PLR0912",
+  "PLR0913",
+  "PLR0915",
+  "S105",
+  "S607",
+  "S603",
+]
+
+[tool.ruff.format]
+line-ending = "lf"
+quote-style = "double"
+
+#[tool.pytest.ini_options]
+#testpaths = [
+#    "tests.py",
+#]
